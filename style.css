@@ -1,0 +1,87 @@
+root,
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  overflow: auto;
+  font-family: Helvetica, sans-serif;
+  width: 100%;
+  height: 100%;
+  background: black;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.output {
+  background-color: black;
+  color: white;
+  font-size: 40px;
+  padding: 14px 10px;
+  border: 1px solid #3c3b3b;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+
+.grid-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 60px);
+  grid-template-rows: repeat(5, 60px);
+  gap: 5px;
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  border: 1px solid grey;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.2s all;
+}
+
+button:hover {
+  transform: scale(0.98);
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+}
+
+buton:active {
+  transform: translateY(4px);
+  box-shadow: 0 5px gray;
+  transform: scale(0.98);
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+}
+
+.operator {
+  background: #f58003;
+  color: white;
+}
+
+.first-line {
+  background: grey;
+  color: white;
+}
+
+.span-two {
+  grid-column: span 2;
+}
+
+.is-pressed {
+  background: white;
+  color: #f58003;
+}
