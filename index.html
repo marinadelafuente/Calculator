@@ -10,7 +10,7 @@
   <body>
     <div id="app">
       <div class="container">
-        <div class="output">0</div>
+        <p class="output">0</p>
         <div class="grid-buttons">
           <button data-action="reset" class="first-line">AC</button>
           <button data-action="type" class="first-line">+/-</button>
@@ -24,16 +24,19 @@
           <button data-number="5">5</button>
           <button data-number="6">6</button>
           <button data-action="minus" class="operator minus">-</button>
+          <button data-number="1">1</button>
           <button data-number="3">3</button>
           <button data-number="2">2</button>
-          <button data-number="1">1</button>
           <button data-action="sum" class="operator">+</button>
           <button data-number="0" class="button-number span-two">0</button>
           <button data-action="decimal">,</button>
           <button data-action="equal" class="operator">=</button>
         </div>
+        <p class="loader hidden">Loading One</p>
+        <p class="loader2 hidden">Loading Two</p>
       </div>
     </div>
+    <script src="./decimal.js"></script>
     <script type="text/javascript" src="./app.js"></script>
   </body>
 </html>

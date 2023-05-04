@@ -11,6 +11,9 @@ body {
   height: 100%;
   background: black;
 }
+* {
+  box-sizing: border-box;
+}
 
 #app {
   width: 100%;
@@ -29,11 +32,13 @@ body {
 .output {
   background-color: black;
   color: white;
-  font-size: 40px;
-  padding: 14px 10px;
+  font-size: 39px;
+  padding: 14px 7px;
   border: 1px solid #3c3b3b;
   border-radius: 4px;
   margin-bottom: 6px;
+  max-width: 255px;
+  overflow: hidden;
 }
 
 .grid-buttons {
@@ -84,4 +89,13 @@ buton:active {
 .is-pressed {
   background: white;
   color: #f58003;
+}
+
+.loader,
+.loader2 {
+  color: white;
+}
+
+.hidden {
+  display: none;
 }

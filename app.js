@@ -1,14 +1,16 @@
 const buttonsContainer = document.querySelector(".grid-buttons");
 const operationButtons = document.querySelectorAll("[data-action]");
 const output = document.querySelector(".output");
+const loader = document.querySelector(".loader");
+const loader2 = document.querySelector(".loader2");
 
 let prevButton = "";
 let operationsButton = "";
 let prevValue;
 
-const handleClick = (ev) => {
+function handleClick(ev) {
   const buttonDataset = ev.target.dataset;
-  let outputValue = output.innerHTML;
+  let outputValue = output.textContent;
 
   // Remove a css class
   const removePressed = () => {
@@ -20,41 +22,42 @@ const handleClick = (ev) => {
     prevButton = "";
     operationsButton = "";
     prevValue = undefined;
-    output.innerHTML = 0;
+    output.textContent = 0;
   };
 
   // Make calculations
+  // Use decimal.js to fix the JS issue of floating point numbers so that 0.1 + 0.2 = 0.3 instead of 0.30000000000000004
   const calculateResult = (prevValue, operation, secondValue) => {
     switch (operation) {
       case "multiply":
-        return prevValue * secondValue;
+        return new Decimal(prevValue).times(secondValue);
       case "minus":
-        return prevValue - secondValue;
+        return new Decimal(prevValue).minus(secondValue);
       case "division":
-        return prevValue / secondValue;
+        return new Decimal(prevValue).div(secondValue);
       default:
-        return Number(prevValue) + Number(secondValue);
+        return new Decimal(prevValue).plus(secondValue);
     }
   };
   // Add number
   if (buttonDataset.number) {
     // Replace current output
     if (outputValue === "0" || prevButton === "operator") {
-      output.innerHTML = buttonDataset.number;
+      output.textContent = buttonDataset.number;
     }
     // Add number to the current output
     else {
-      output.innerHTML += buttonDataset.number;
+      output.textContent += buttonDataset.number;
     }
     prevButton = "number";
   }
   // Add a decimal
   else if (buttonDataset.action === "decimal") {
-    output.innerHTML += ".";
+    output.textContent += ".";
   }
   // Calculate the percentage
   else if (buttonDataset.action === "percentage") {
-    output.innerHTML = outputValue / 100;
+    output.textContent = outputValue / 100;
   }
   // Change the number to negative or positive
   else if (buttonDataset.action === "type") {
@@ -63,7 +66,7 @@ const handleClick = (ev) => {
     } else {
       outputValue = `-${outputValue}`;
     }
-    output.innerHTML = outputValue;
+    output.textContent = outputValue;
   }
   // Clear the output
   else if (buttonDataset.action === "reset") {
@@ -72,7 +75,8 @@ const handleClick = (ev) => {
   }
   // Calculate the result
   else if (buttonDataset.action === "equal") {
-    output.innerHTML = calculateResult(prevValue, operationsButton, outputValue);
+    let result = calculateResult(prevValue, operationsButton, outputValue);
+    output.textContent = result;
     prevButton = "operator";
     removePressed();
     prevValue = outputValue;
@@ -80,15 +84,14 @@ const handleClick = (ev) => {
   // Make the operations
   else {
     removePressed();
-    console.log("ev.target.value", ev);
     if (!ev.target.classList.contains("grid-buttons")) ev.target.classList.add("is-pressed");
     if (prevValue && prevValue !== outputValue && prevButton === "number") {
-      output.innerHTML = calculateResult(prevValue, operationsButton, outputValue);
+      output.textContent = calculateResult(prevValue, operationsButton, outputValue);
     }
     prevButton = "operator";
-    prevValue = output.innerHTML;
+    prevValue = output.textContent;
     operationsButton = buttonDataset.action;
   }
-};
+}
 
 buttonsContainer.addEventListener("click", handleClick);
